@@ -13,8 +13,8 @@ metadata:
   displayName: "Code Ready Workspaces (APB)"
   dependencies:
     - "docker.io/eclipse/che-server:nightly"
-    - "registry.access.redhat.com/redhat-sso-7/sso72-openshift:1.2-8"
-    - "registry.access.redhat.com/rhscl/postgresql-96-rhel7:1-25"
+    - "registry.redhat.io/redhat-sso-7/sso72-openshift:1.2-8"
+    - "registry.redhat.io/rhscl/postgresql-96-rhel7:1-25"
 plans:
   - name: prod
     description: Persistent deployment of Code Ready Workspaces
