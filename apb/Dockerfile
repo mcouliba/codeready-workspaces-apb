@@ -169,8 +169,13 @@ YnVnCg=="
 
 
 
+USER root
 
-COPY playbooks /opt/apb/actions
+RUN yum install python27-python-psycopg2.x86_64 -y && \
+    yum clean all -y && \
+    cp -R /opt/rh/python27/root/usr/lib64/python2.7/site-packages/* /usr/lib/python2.7/site-packages && \
+    echo "gather_timeout=20" >> /opt/apb/ansible.cfg
+COPY playbooks /opt/apb/project
 COPY roles /opt/ansible/roles
 RUN chmod -R g=u /opt/{ansible,apb} && \
     find /opt/ansible/roles/keycloak-apb -type f | xargs sed -i "s/'persistent'/'prod'/g" && \
