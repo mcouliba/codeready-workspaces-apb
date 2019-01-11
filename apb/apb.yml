@@ -1,6 +1,6 @@
 ---
 version: 1.0
-name: code-ready-apb
+name: codeready-apb
 description: Code Ready Workspaces
 bindable: false
 async: optional
@@ -23,6 +23,19 @@ plans:
       displayName: Production
       longDescription: "This plan deploys Code Ready Workspaces with persistent storage"
     parameters:
+      - name: openshift_user
+        title: Username
+        description: User is required for creating project admin resources
+        type: string
+        required: true
+        display_group: OpenShift Admin User
+      - name: openshift_password
+        title: Password
+        description: Password is required for creating project admin resources
+        type: string
+        required: true
+        display_type: password
+        display_group: OpenShift Admin User
       - name: "che_image_name"
         title: Code Ready Workspaces Server Image Repo
         description: Defaults to eclipse/che-server

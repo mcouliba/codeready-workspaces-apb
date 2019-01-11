@@ -4,6 +4,9 @@
   gather_facts: false
   connection: local
   vars:
+    openshift_user: 
+    openshift_password: 
+    openshift_token:
     postgresql_admin_password: admin123
     postgresql_version: 9.6
     database_name: keycloak
@@ -13,13 +16,22 @@
       install_python_requirements: no
     - role: ansibleplaybookbundle.asb-modules
   tasks:
-    - set_fact:
-        token: "{{ lookup('env', 'OPENSHIFT_TOKEN' ) }}"
-        ocp_host: "{{ lookup('env', 'OPENSHIFT_TARGET' ) }}"
-
-    - name: "Login"
-      command: "oc login --token={{ token }} --insecure-skip-tls-verify=true {{ ocp_host }}"
-    - include_role:
+    - name: login as super user with token
+      shell: "oc login --token={{ openshift_token }} --insecure-skip-tls-verify=true"
+      when:
+        - openshift_token is defined
+        - openshift_token is not none
+        - openshift_token|trim() != ""
+      tags: always
+    - name: login as super user with pwd
+      shell: "oc login -u {{ openshift_user }} -p {{ openshift_password }} --insecure-skip-tls-verify=true"
+      when: >
+        openshift_token is not defined or
+        openshift_token is none or
+        openshift_token|trim() == ""
+      tags: always
+    - name: provisioning eclipse-che
+      include_role:
         name: provision-eclipse-che-apb
       vars:
         cluster: openshift
