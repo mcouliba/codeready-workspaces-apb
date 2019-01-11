@@ -4,6 +4,14 @@ NOTE: Dockerfiles in this repo are NOT the ones used to build RHCC container ima
 
 To build stacks in OSBS, see http://pkgs.devel.redhat.com/cgit/apbs/codeready-workspaces/tree/README.adoc?h=codeready-1.0-rhel-7
 
+## How to Build and Deploy on Openshift
+```
+oc new-build https://github.com/mcouliba/codeready-workspaces-apb \
+  --context-dir=apb \
+  --name=codeready-workspaces-apb \
+  -n openshift
+```
+
 ## How to Build Locally
 
 ```
